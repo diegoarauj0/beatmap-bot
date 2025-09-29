@@ -1,0 +1,33 @@
+{
+	"name": "beatmapbot",
+	"version": "1.0.0",
+	"description": "Um bot que mostra informações de usuario/beatmaps do osu no discord",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development tsx --watch src/index.ts",
+		"start": "cross-env NODE_ENV=production node dist/index.js",
+		"prettier": "npx prettier . --write",
+		"lint:fix": "eslint . --fix",
+		"build": "tsc && tsc-alias",
+		"lint": "eslint ."
+	},
+	"author": "diegoaruj0",
+	"license": "ISC",
+	"devDependencies": {
+		"@eslint/js": "^9.36.0",
+		"@types/node": "^24.5.2",
+		"eslint": "^9.36.0",
+		"eslint-config-prettier": "^10.1.8",
+		"globals": "^16.4.0",
+		"prettier": "^3.6.2",
+		"tsc-alias": "^1.8.16",
+		"tsx": "^4.20.6",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1"
+	},
+	"dependencies": {
+		"cross-env": "^10.0.0",
+		"discord.js": "^14.22.1",
+		"dotenv": "^17.2.2"
+	}
+}

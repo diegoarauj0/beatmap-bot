@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+ app:
+  build:
+   context: .
+   dockerfile: dockerfile.Development
+  container_name: beatmapbot
+  volumes:
+   - .:/app
+   - /app/node_modules
