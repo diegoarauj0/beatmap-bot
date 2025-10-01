@@ -7,11 +7,15 @@
 		"types": [],
 		"sourceMap": true,
 		"declaration": true,
+		"experimentalDecorators": true,
 		"declarationMap": true,
+		"esModuleInterop": true,
 		"noUncheckedIndexedAccess": true,
 		"baseUrl": "./src",
 		"paths": {
+			"@di/*": ["./di/*"],
 			"@app/*": ["./app/*"],
+			"@domain/*": ["./domain/*"],
 			"@config/*": ["./config/*"],
 			"@discord/*": ["./discord/*"]
 		}
