@@ -1,5 +1,6 @@
+import { IOsuBeatmapExtended, OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
+import { IOsuUserExtendedProfile, OsuUserExtendedEntity } from "@domain/entities/osuUser.entity";
 import { IOsuClientService, OsuClientRuleset } from "../contracts/services/osuClient.service";
-import { IOsuUserExtenderProfile, UserExtendedOsuEntity } from "@domain/entities/osuUser.entity";
 import { setAuth, getAuth } from "../stores/osuTokenStore";
 import axios, { AxiosResponse } from "axios";
 
@@ -86,14 +87,25 @@ export default class OsuClientService implements IOsuClientService {
 		this.expiresIn = response.data.expires_in;
 	}
 
+	public async findBeatmap(beatmapId: number): Promise<OsuBeatmapExtendedEntity | null> {
+		try {
+			const response = await this.get<IOsuBeatmapExtended>(`/beatmaps/${beatmapId}`);
+			return new OsuBeatmapExtendedEntity(response.data);
+		} catch (err) {
+			console.error(err);
+			return null;
+		}
+	}
+
 	public async findUser(
 		query: string | number,
 		ruleset: OsuClientRuleset
-	): Promise<UserExtendedOsuEntity | null> {
+	): Promise<OsuUserExtendedEntity | null> {
 		try {
-			const response = await this.get<IOsuUserExtenderProfile>(`/users/${query}/${ruleset}`);
-			return new UserExtendedOsuEntity(response.data);
-		} catch {
+			const response = await this.get<IOsuUserExtendedProfile>(`/users/${query}/${ruleset}`);
+			return new OsuUserExtendedEntity(response.data);
+		} catch (err) {
+			console.error(err);
 			return null;
 		}
 	}

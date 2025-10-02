@@ -125,7 +125,7 @@ interface IOsuUserProfile {
 type Ruleset = "osu" | "taiko" | "fruits" | "mania";
 type ProfilePage = "me" | "recent_activity" | "beatmaps" | "historical" | "kudosu" | "top_ranks" | "medals";
 
-export interface IOsuUserExtenderProfile extends IOsuUserProfile {
+export interface IOsuUserExtendedProfile extends IOsuUserProfile {
 	cover_url: string;
 	discord?: string;
 	has_supported: boolean;
@@ -198,7 +198,7 @@ export class OsuUserEntity implements IOsuUserProfile {
 	}
 }
 
-export class UserExtendedOsuEntity extends OsuUserEntity implements IOsuUserExtenderProfile {
+export class OsuUserExtendedEntity extends OsuUserEntity implements IOsuUserExtendedProfile {
 	public cover_url: string;
 	public discord?: string;
 	public has_supported: boolean;
@@ -218,7 +218,7 @@ export class UserExtendedOsuEntity extends OsuUserEntity implements IOsuUserExte
 	public twitter?: string;
 	public website?: string;
 
-	constructor(props: IOsuUserExtenderProfile) {
+	constructor(props: IOsuUserExtendedProfile) {
 		super(props);
 		Object.assign(this, props);
 	}

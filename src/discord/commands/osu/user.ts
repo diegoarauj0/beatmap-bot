@@ -15,7 +15,7 @@ export default class FindUser extends BaseCommand {
 			options: [
 				{
 					name: "query",
-					required: false,
+					required: true,
 					description: "user id or username",
 					type: ApplicationCommandOptionType.String,
 				},
@@ -24,7 +24,7 @@ export default class FindUser extends BaseCommand {
 	}
 
 	public run = async ({ interaction, options }: CommandProps): Promise<void> => {
-		const user = await this.findUserUseCase.findUser(options.getString("query", false), OsuClientRuleset.Osu);
+		const user = await this.findUserUseCase.findUser(options.getString("query", true), OsuClientRuleset.Osu);
 
 		const embed = new UserEmbed(user);
 

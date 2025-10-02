@@ -1,4 +1,5 @@
-import { UserExtendedOsuEntity } from "@domain/entities/osuUser.entity";
+import { OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
+import { OsuUserExtendedEntity } from "@domain/entities/osuUser.entity";
 
 export enum OsuClientRuleset {
 	Fruits = "fruits",
@@ -8,5 +9,6 @@ export enum OsuClientRuleset {
 }
 
 export interface IOsuClientService {
-	findUser(query: string | number, ruleset: OsuClientRuleset): Promise<null | UserExtendedOsuEntity>;
+	findUser(query: string | number, ruleset: OsuClientRuleset): Promise<null | OsuUserExtendedEntity>;
+	findBeatmap(beatmapId: number): Promise<null | OsuBeatmapExtendedEntity>
 }
