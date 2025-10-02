@@ -1,5 +1,5 @@
-import { OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
-import { OsuUserExtendedEntity } from "@domain/entities/osuUser.entity";
+import { OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
+import { OsuUserExtendedEntity } from "@domain/entities/osu/osuUser.entity";
 
 export enum OsuClientRuleset {
 	Fruits = "fruits",

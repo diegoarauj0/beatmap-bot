@@ -1,6 +1,6 @@
 import { IOsuClientService } from "@app/shared/contracts/services/osuClient.service";
 import { IFindBeatmapUseCase } from "../contracts/useCases/findBeatmap.useCase";
-import { OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
+import { OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

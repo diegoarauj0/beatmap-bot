@@ -1,6 +1,6 @@
 import { IOsuClientService, OsuClientRuleset } from "@app/shared/contracts/services/osuClient.service";
 import { IFindUserUseCase } from "../contracts/useCases/findUser.useCase";
-import { OsuUserExtendedEntity } from "@domain/entities/osuUser.entity";
+import { OsuUserExtendedEntity } from "@domain/entities/osu/osuUser.entity";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

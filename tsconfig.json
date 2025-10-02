@@ -17,7 +17,8 @@
 			"@app/*": ["./app/*"],
 			"@domain/*": ["./domain/*"],
 			"@config/*": ["./config/*"],
-			"@discord/*": ["./discord/*"]
+			"@discord/*": ["./discord/*"],
+			"@persistence/*": ["./persistence/*"]
 		}
 	}
 }

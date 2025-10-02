@@ -1,4 +1,4 @@
-import { OsuUserExtendedEntity } from "@domain/entities/osuUser.entity";
+import { OsuUserExtendedEntity } from "@domain/entities/osu/osuUser.entity";
 import { EmbedBuilder } from "discord.js";
 
 export class UserEmbed extends EmbedBuilder {

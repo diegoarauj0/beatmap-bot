@@ -1,4 +1,4 @@
-import {  OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
+import { OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
 
 export interface IFindBeatmapUseCase {
 	findBeatmap: (beatmapId: number) => Promise<OsuBeatmapExtendedEntity | null>;

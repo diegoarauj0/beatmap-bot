@@ -1,4 +1,4 @@
-import { OsuBeatmapExtendedEntity } from "@domain/entities/osuBeatmap.entity";
+import { OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
 import { EmbedBuilder } from "discord.js";
 
 export class BeatmapEmbed extends EmbedBuilder {

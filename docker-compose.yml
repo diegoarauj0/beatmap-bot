@@ -1,11 +1,21 @@
 version: "3.9"
 
 services:
- app:
-  build:
-   context: .
-   dockerfile: dockerfile.Development
-  container_name: beatmapbot
-  volumes:
-   - .:/app
-   - /app/node_modules
+  redis:
+    image: redis
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile.Development
+    container_name: beatmapbot
+    environment:
+     -  REDIS_URL=redis://redis:6379
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - redis
