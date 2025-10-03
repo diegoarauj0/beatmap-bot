@@ -1,6 +1,9 @@
-import { IOsuBeatmapExtended, OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
-import { IOsuUserExtendedProfile, OsuUserExtendedEntity } from "@domain/entities/osu/osuUser.entity";
-import { IOsuClientService, OsuClientRuleset } from "../contracts/services/osuClient.service";
+import {
+	IOsuBeatmapExtended,
+	IOsuClientService,
+	IOsuUserExtendedProfile,
+	OsuClientRuleset,
+} from "../contracts/services/osuClient.service";
 import axios, { AxiosResponse } from "axios";
 import { IOsuCacheService } from "../contracts/services/osuCache.service";
 import { inject, injectable } from "tsyringe";
@@ -82,12 +85,12 @@ export default class OsuClientService implements IOsuClientService {
 		};
 	}
 
-	public async findBeatmap(beatmapId: number): Promise<OsuBeatmapExtendedEntity | null> {
+	public async findBeatmap(beatmapId: number): Promise<IOsuBeatmapExtended | null> {
 		try {
 			const beatmap = await this.osuCacheService.findCache<IOsuBeatmapExtended>(`beatmap:${beatmapId}`);
 
 			if (beatmap !== null) {
-				return new OsuBeatmapExtendedEntity(beatmap);
+				return beatmap;
 			}
 
 			const response = await this.get<IOsuBeatmapExtended>(`/beatmaps/${beatmapId}`);
@@ -98,7 +101,7 @@ export default class OsuClientService implements IOsuClientService {
 				Number(process.env.BEATMAP_CACHE_TTL || "300")
 			);
 
-			return new OsuBeatmapExtendedEntity(response.data);
+			return beatmap;
 		} catch (err) {
 			console.error(err);
 			return null;
@@ -108,12 +111,12 @@ export default class OsuClientService implements IOsuClientService {
 	public async findUser(
 		query: string | number,
 		ruleset: OsuClientRuleset
-	): Promise<OsuUserExtendedEntity | null> {
+	): Promise<IOsuUserExtendedProfile | null> {
 		try {
 			const user = await this.osuCacheService.findCache<IOsuUserExtendedProfile>(`user:${query}`);
 
 			if (user !== null) {
-				return new OsuUserExtendedEntity(user);
+				return user;
 			}
 
 			const response = await this.get<IOsuUserExtendedProfile>(`/users/${query}/${ruleset}`);
@@ -130,7 +133,7 @@ export default class OsuClientService implements IOsuClientService {
 				Number(process.env.USER_CACHE_TTL || "300")
 			);
 
-			return new OsuUserExtendedEntity(response.data);
+			return response.data;
 		} catch (err) {
 			console.error(err);
 			return null;

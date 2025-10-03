@@ -1,87 +1,62 @@
-import { OsuUserExtendedEntity } from "@domain/entities/osu/osuUser.entity";
+import { IOsuUserExtendedProfile } from "@app/shared/contracts/services/osuClient.service";
 import { EmbedBuilder } from "discord.js";
 
-export class UserEmbed extends EmbedBuilder {
-	constructor(osuUserExtendedEntity: OsuUserExtendedEntity | null) {
-		super();
-		if (osuUserExtendedEntity === null) {
-			this.userNotFound();
-		} else {
-			this.main(osuUserExtendedEntity);
-		}
-	}
-
-	private userNotFound(): void {
-		this.setColor("Red")
-			.setTitle("❌ Player not found!")
-			.setDescription("This user was not found.")
-			.setTimestamp();
-	}
-
-	private main(osuUserExtendedEntity: OsuUserExtendedEntity | null): void {
+export class UserEmbed {
+	static userEmbedBuilder(osuUserExtendedProfile: IOsuUserExtendedProfile): EmbedBuilder {
 		let description = "";
-		const fields: { name: string; value: string }[] = [
-			{
-				name: "🌎 Country",
-				value: `:flag_${osuUserExtendedEntity.country.code.toLowerCase()}: ${osuUserExtendedEntity.country.name}`,
-			},
-			{
-				name: "🌐 Global Ranking",
-				value: `${String(osuUserExtendedEntity.statistics.global_rank?.toLocaleString("en"))}`,
-			},
-			{
-				name: "🏳️ Country Ranking",
-				value: `${String(osuUserExtendedEntity.statistics.country_rank?.toLocaleString("en"))}`,
-			},
-			{ name: "⏲️ Total Play Time", value: `${osuUserExtendedEntity.playTime()}` },
-			{ name: "🏅 Medals", value: `${osuUserExtendedEntity.user_achievements.length}` },
-			{ name: "⚡ PP", value: `${osuUserExtendedEntity.statistics.pp.toLocaleString("en")}` },
-			{
-				name: "🏆 Ranks",
-				value: `🇽|🇭: ${osuUserExtendedEntity.statistics.grade_counts.ssh} | 🇽: ${osuUserExtendedEntity.statistics.grade_counts.ss} | 🇸|🇭: ${osuUserExtendedEntity.statistics.grade_counts.sh} | 🇸: ${osuUserExtendedEntity.statistics.grade_counts.s} | 🇦: ${osuUserExtendedEntity.statistics.grade_counts.a}`,
-			},
-			{
-				name: "💯 Ranked Score",
-				value: `${String(osuUserExtendedEntity.statistics.ranked_score.toLocaleString("en"))}`,
-			},
-			{ name: "🎯 Hit Accuracy", value: `${String(osuUserExtendedEntity.statistics.hit_accuracy.toFixed(2))}%` },
-			{
-				name: "🎮 Play Count",
-				value: `${String(osuUserExtendedEntity.statistics.play_count.toLocaleString("en"))}`,
-			},
-			{
-				name: "📈 Total Score",
-				value: `${String(osuUserExtendedEntity.statistics.total_score.toLocaleString("en"))}`,
-			},
-			{
-				name: "🥁 Total Hits",
-				value: `${String(osuUserExtendedEntity.statistics.total_hits.toLocaleString("en"))}`,
-			},
-			{
-				name: "🔗 Maximum Combo",
-				value: `${String(osuUserExtendedEntity.statistics.maximum_combo.toLocaleString("en"))}`,
-			},
-			{
-				name: "👀 Replays Watched by Others",
-				value: `${String(osuUserExtendedEntity.statistics.replays_watched_by_others.toLocaleString("en"))}`,
-			},
-			{ name: "📶 Level", value: `${String(osuUserExtendedEntity.statistics.level.current)}` },
-			{ name: "📅 Joined", value: `<t:${new Date(osuUserExtendedEntity.join_date).getTime() / 1000}:R>` },
+
+		const fields: Array<{ name: string; value?: string } | string> = [
+			"Basic profile",
+			{ name: "🆔 ID", value: `${osuUserExtendedProfile.id}` },
+			{ name: "🌐 Country", value: `${osuUserExtendedProfile.country.name}` },
+			{ name: "🎮 Playmode", value: `${osuUserExtendedProfile.playmode}` },
+			{ name: "⌛ Join Date", value: new Date(osuUserExtendedProfile.join_date).toLocaleDateString() },
+			{ name: "🏢 Location", value: osuUserExtendedProfile.location || "N/A" },
+			{ name: "💻 Playstyle", value: osuUserExtendedProfile.playstyle.join(", ") },
+			{ name: "🖥️ Discord", value: osuUserExtendedProfile.discord || "N/A" },
+
+			"Statistics",
+			{ name: "⭐ PP", value: `${osuUserExtendedProfile.statistics.pp}` },
+			{ name: "📊 Global Rank", value: `#${osuUserExtendedProfile.statistics.global_rank}` },
+			{ name: "🏆 Country Rank", value: `#${osuUserExtendedProfile.statistics.country_rank}` },
+			{ name: "💯 Hit Accuracy", value: `${osuUserExtendedProfile.statistics.hit_accuracy.toFixed(2)}%` },
+			{ name: "🎮 Play Count", value: `${osuUserExtendedProfile.statistics.play_count}` },
+			{ name: "⏱️ Play Time", value: `${Math.floor(osuUserExtendedProfile.statistics.play_time / 3600)}h` },
+
+			"Beatmaps",
+			{ name: "📁 Ranked Beatmaps", value: `${osuUserExtendedProfile.ranked_beatmapset_count}` },
+			{ name: "💖 Loved Beatmaps", value: `${osuUserExtendedProfile.loved_beatmapset_count}` },
+			{ name: "⭐ Favourite Beatmaps", value: `${osuUserExtendedProfile.favourite_beatmapset_count}` },
+
+			"Scores",
+			{ name: "🏅 SSH", value: `${osuUserExtendedProfile.statistics.grade_counts.ssh}` },
+			{ name: "🏅 SS", value: `${osuUserExtendedProfile.statistics.grade_counts.ss}` },
+			{ name: "🏅 SH", value: `${osuUserExtendedProfile.statistics.grade_counts.sh}` },
+			{ name: "🏅 S", value: `${osuUserExtendedProfile.statistics.grade_counts.s}` },
+			{ name: "🏅 A", value: `${osuUserExtendedProfile.statistics.grade_counts.a}` },
 		];
 
-		fields.forEach(({ value, name }) => {
-			description += `**| ▸ ${name}: ${value}**\n`;
+		fields.forEach((v) => {
+			if (typeof v === "string") {
+				return (description += `\n**| ▸▸▸ ${v}**\n--------------------------------------------------\n`);
+			}
+
+			description += `**| ▸ ${v.name}: ${v.value}**\n`;
 		});
 
-		this.setColor("Random")
+		const embed = new EmbedBuilder()
 			.setAuthor({
-				name: `Profile ${osuUserExtendedEntity.username}`,
-				url: `https://osu.ppy.sh/users/${osuUserExtendedEntity.id}`,
-				iconURL: osuUserExtendedEntity.avatar_url,
+				name: osuUserExtendedProfile.username,
+				iconURL: osuUserExtendedProfile.avatar_url,
+				url: `https://osu.ppy.sh/users/${osuUserExtendedProfile.id}`,
 			})
-			.setThumbnail(osuUserExtendedEntity.avatar_url)
-			.setDescription(description)
+			.setThumbnail(osuUserExtendedProfile.avatar_url)
+			.setImage(osuUserExtendedProfile.cover_url)
 			.setTitle("About")
+			.setDescription(description)
+			.setColor("Random")
 			.setTimestamp();
+
+		return embed;
 	}
 }

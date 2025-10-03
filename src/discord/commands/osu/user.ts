@@ -2,6 +2,7 @@ import { ApplicationCommandOptionType, ApplicationCommandType, MessageFlags } fr
 import { OsuClientRuleset } from "@app/shared/contracts/services/osuClient.service";
 import { IFindUserUseCase } from "@app/users/contracts/useCases/findUser.useCase";
 import { BaseCommand, CommandProps } from "@discord/types/command";
+import { ErrorEmbed } from "@discord/embeds/error";
 import { UserEmbed } from "@discord/embeds/user";
 import { injectable, inject } from "tsyringe";
 
@@ -24,10 +25,18 @@ export default class FindUser extends BaseCommand {
 	}
 
 	public run = async ({ interaction, options }: CommandProps): Promise<void> => {
-		const user = await this.findUserUseCase.findUser(options.getString("query", true), OsuClientRuleset.Osu);
+		const userExtended = await this.findUserUseCase.findUser(
+			options.getString("query", true),
+			OsuClientRuleset.Osu
+		);
 
-		const embed = new UserEmbed(user);
+		if (userExtended === null) {
+			interaction.reply({ embeds: [ErrorEmbed.notFoundEmbedBuilder("user")], flags: MessageFlags.Ephemeral });
+			return
+		}
 
-		interaction.reply({ embeds: [embed], flags: user === null ? MessageFlags.Ephemeral : undefined });
+		const embed = UserEmbed.userEmbedBuilder(userExtended);
+
+		interaction.reply({ embeds: [embed] });
 	};
 }

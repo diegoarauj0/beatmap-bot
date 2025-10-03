@@ -1,8 +1,9 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, MessageFlags } from "discord.js";
 import { IFindBeatmapUseCase } from "@app/beatmap/contracts/useCases/findBeatmap.useCase";
+import { ApplicationCommandOptionType, ApplicationCommandType, MessageFlags } from "discord.js";
 import { BaseCommand, CommandProps } from "@discord/types/command";
 import { BeatmapEmbed } from "@discord/embeds/beatmap";
 import { injectable, inject } from "tsyringe";
+import { ErrorEmbed } from "@discord/embeds/error";
 
 @injectable()
 export default class FindBeatmap extends BaseCommand {
@@ -23,10 +24,15 @@ export default class FindBeatmap extends BaseCommand {
 	}
 
 	public run = async ({ interaction, options }: CommandProps): Promise<void> => {
-		const beatmap = await this.findBeatmapUseCase.findBeatmap(options.getNumber("beatmap_id", true));
+		const beatmapExtended = await this.findBeatmapUseCase.findBeatmap(options.getNumber("beatmap_id", true));
 
-		const embed = new BeatmapEmbed(beatmap)
+		if (beatmapExtended === null) {
+			interaction.reply({ embeds: [ErrorEmbed.notFoundEmbedBuilder("beatmap")], flags: MessageFlags.Ephemeral });
+			return 
+		}
 
-		interaction.reply({ embeds: [embed], flags: beatmap === null ? MessageFlags.Ephemeral : undefined });
+		const beatmapEmbed = BeatmapEmbed.beatmapEmbedBuilder(beatmapExtended);
+
+		interaction.reply({ embeds: [beatmapEmbed] });
 	};
 }
