@@ -1,7 +1,8 @@
 import { CommandInteractionOptionResolver, MessageFlags } from "discord.js";
+import { ErrorEmbed } from "@discord/embeds/error";
 import { Event } from "@discord/types/event";
 import discordClient from "@discord/index";
-import { ErrorEmbed } from "@discord/embeds/error";
+import i18next from "@config/i18next";
 
 export default new Event({
 	name: "interactionCreate",
@@ -14,10 +15,13 @@ export default new Event({
 		const options = (interaction as { options: unknown }).options as CommandInteractionOptionResolver;
 
 		try {
-			command.run({
-				client: discordClient,
-				interaction,
-				options,
+			i18next().then((v) => {
+				command.run({
+					client: discordClient,
+					interaction,
+					options,
+					i18next: v
+				});
 			});
 		} catch (err) {
 			console.error(err);

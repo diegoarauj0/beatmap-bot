@@ -113,7 +113,9 @@ export default class OsuClientService implements IOsuClientService {
 		ruleset: OsuClientRuleset
 	): Promise<IOsuUserExtendedProfile | null> {
 		try {
-			const user = await this.osuCacheService.findCache<IOsuUserExtendedProfile>(`user:${query}`);
+			const user = await this.osuCacheService.findCache<IOsuUserExtendedProfile>(
+				`user:${typeof query === "string" ? query.toLowerCase() : query}`
+			);
 
 			if (user !== null) {
 				return user;
@@ -122,7 +124,7 @@ export default class OsuClientService implements IOsuClientService {
 			const response = await this.get<IOsuUserExtendedProfile>(`/users/${query}/${ruleset}`);
 
 			await this.osuCacheService.createCache<IOsuUserExtendedProfile>(
-				`user:${response.data.username}`,
+				`user:${response.data.username.toLowerCase()}`,
 				response.data,
 				Number(process.env.USER_CACHE_TTL || "300")
 			);

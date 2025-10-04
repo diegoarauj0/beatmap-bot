@@ -1,0 +1,83 @@
+{
+  "translation": {
+    "commands": {
+      "user": {
+        "fields": {
+          "titles": {
+            "basic_profile": "Perfil Básico",
+            "statistic": "Estatísticas",
+            "beatmaps": "Mapas",
+            "scores": "Pontuações"
+          },
+          "basic_profile": {
+            "id": "ID",
+            "country": "País",
+            "play_mode": "Modo de Jogo",
+            "join_date": "Data de Registro",
+            "location": "Localização",
+            "play_style": "Estilo de Jogo",
+            "discord": "Discord"
+          },
+          "statistic": {
+            "pp": "PP",
+            "global_rank": "Ranking Global",
+            "country_rank": "Ranking no País",
+            "hit_accuracy": "Precisão",
+            "play_count": "Quantidade de Jogos",
+            "play_time": "Tempo de Jogo"
+          },
+          "beatmaps": {
+            "ranked_beatmaps": "Mapas Ranqueados",
+            "loved_beatmaps": "Mapas Amados",
+            "favourite_beatmaps": "Mapas Favoritos"
+          },
+          "scores": {
+            "ssh": "SSH",
+            "ss": "SS",
+            "sh": "SH",
+            "s": "S",
+            "a": "A"
+          }
+        }
+      },
+      "beatmap": {
+        "fields": {
+          "titles": {
+            "beatmap_information": "Informações do Beatmap",
+            "music_information": "Informações da Música",
+            "statistics": "Estatísticas"
+          },
+          "beatmap_information": {
+            "creator": "Criador",
+            "beatmap_id": "ID do Beatmap",
+            "beatmapset_id": "ID do Conjunto",
+            "version": "Versão",
+            "ar": "AR (Taxa de Abordagem)",
+            "cs": "CS (Tamanho dos Círculos)",
+            "accuracy": "Precisão (OD)",
+            "drain": "Dreno de HP",
+            "circles": "Círculos",
+            "sliders": "Sliders",
+            "spinners": "Spinners",
+            "max_combo": "Combo Máximo"
+          },
+          "music_information": {
+            "title": "Título",
+            "artist": "Artista",
+            "source": "Fonte",
+            "BPM": "BPM",
+            "length": "Duração",
+            "preview": "Prévia"
+          },
+          "statistics": {
+            "play_count": "Quantidade de Jogadas",
+            "pass_count": "Quantidade de Passagens",
+            "favourites": "Favoritos",
+            "rating": "Avaliação",
+            "status": "Status"
+          }
+        }
+      }
+    }
+  }
+}

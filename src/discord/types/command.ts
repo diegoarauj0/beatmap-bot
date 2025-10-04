@@ -8,11 +8,13 @@ import {
 	ModalSubmitInteraction,
 	StringSelectMenuInteraction,
 } from "discord.js";
+import { i18n } from "i18next";
 
 export interface CommandProps {
 	options: CommandInteractionOptionResolver;
 	interaction: CommandInteraction;
 	client: DiscordClient;
+	i18next: i18n
 }
 
 export type ComponentsButton = Collection<string, (interaction: ButtonInteraction) => unknown>;

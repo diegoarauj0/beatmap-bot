@@ -11,32 +11,42 @@ export default class FindUser extends BaseCommand {
 	constructor(@inject("IFindUserUseCase") private findUserUseCase: IFindUserUseCase) {
 		super({
 			name: "user",
-			description: "search user",
+			descriptionLocalizations: {
+				"pt-BR": "Mostrar as informações do usuario",
+			},
+			description: "Show user information",
 			type: ApplicationCommandType.ChatInput,
 			options: [
 				{
-					name: "query",
-					required: true,
-					description: "user id or username",
+					descriptionLocalizations: {
+						"pt-BR": "ID ou nome de usuario",
+					},
+					nameLocalizations: {
+						"pt-BR": "parametro",
+					},
 					type: ApplicationCommandOptionType.String,
+					description: "ID or username",
+					required: true,
+					name: "param",
 				},
 			],
 		});
 	}
 
-	public run = async ({ interaction, options }: CommandProps): Promise<void> => {
+	public run = async ({ interaction, options, i18next }: CommandProps): Promise<void> => {
 		const userExtended = await this.findUserUseCase.findUser(
-			options.getString("query", true),
+			options.getString("param", true),
 			OsuClientRuleset.Osu
 		);
 
 		if (userExtended === null) {
 			interaction.reply({ embeds: [ErrorEmbed.notFoundEmbedBuilder("user")], flags: MessageFlags.Ephemeral });
-			return
+			return;
 		}
 
-		const embed = UserEmbed.userEmbedBuilder(userExtended);
+		const lang = interaction.locale.startsWith("pt") ? "pt" : "en";
+		const userEmbed = UserEmbed.userEmbedBuilder(userExtended, i18next, lang);
 
-		interaction.reply({ embeds: [embed] });
+		interaction.reply({ embeds: [userEmbed] });
 	};
 }

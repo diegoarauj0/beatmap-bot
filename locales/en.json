@@ -1,0 +1,83 @@
+{
+  "translation": {
+    "commands": {
+      "user": {
+        "fields": {
+          "titles": {
+            "basic_profile": "Basic Profile",
+            "statistic": "Statistic",
+            "beatmaps": "Beatmaps",
+            "scores": "Scores"
+          },
+          "basic_profile": {
+            "id": "ID",
+            "country": "Country",
+            "play_mode": "Playmode",
+            "join_date": "Join Date",
+            "location": "Location",
+            "play_style": "Playstyle",
+            "discord": "Discord"
+          },
+          "statistic": {
+            "pp": "PP",
+            "global_rank": "Global Rank",
+            "country_rank": "Country Rank",
+            "hit_accuracy": "Hit Accuracy",
+            "play_count": "Play Count",
+            "play_time": "Play Time"
+          },
+          "beatmaps": {
+            "ranked_beatmaps": "Ranked Beatmaps",
+            "loved_beatmaps": "Loved Beatmaps",
+            "favourite_beatmaps": "Favourite Beatmaps"
+          },
+          "scores": {
+            "ssh": "SSH",
+            "ss": "SS",
+            "sh": "SH",
+            "s": "S",
+            "a": "A"
+          }
+        }
+      },
+      "beatmap": {
+        "fields": {
+          "titles": {
+            "beatmap_information": "Beatmap Information",
+            "music_information": "Music Information",
+            "statistics": "Statistics"
+          },
+          "beatmap_information": {
+            "creator": "Creator",
+            "beatmap_id": "Beatmap ID",
+            "beatmapset_id": "Beatmapset ID",
+            "version": "Version",
+            "ar": "AR (Approach Rate)",
+            "cs": "CS (Circles Size)",
+            "accuracy": "Accuracy (OD)",
+            "drain": "HP Drain",
+            "circles": "Circles",
+            "sliders": "Sliders",
+            "spinners": "Spinners",
+            "max_combo": "Max Combo"
+          },
+          "music_information": {
+            "title": "Title",
+            "artist": "Artist",
+            "source": "Source",
+            "BPM": "BPM",
+            "length": "Length",
+            "preview": "Preview"
+          },
+          "statistics": {
+            "play_count": "Playcount",
+            "pass_count": "Passcount",
+            "favourites": "Favourites",
+            "rating": "Rating",
+            "status": "Status"
+          }
+        }
+      }
+    }
+  }
+}

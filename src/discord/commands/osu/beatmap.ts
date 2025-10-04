@@ -10,28 +10,32 @@ export default class FindBeatmap extends BaseCommand {
 	constructor(@inject("IFindBeatmapUseCase") private findBeatmapUseCase: IFindBeatmapUseCase) {
 		super({
 			name: "beatmap",
-			description: "search beatmap",
+			descriptionLocalizations: {
+				"pt-BR": "Mostra as informações do beatmap",
+			},
+			description: "Shows beatmap information",
 			type: ApplicationCommandType.ChatInput,
 			options: [
 				{
 					name: "beatmap_id",
 					required: true,
-					description: "beatmap id",
+					description: "beatmap ID",
 					type: ApplicationCommandOptionType.Number,
 				},
 			],
 		});
 	}
 
-	public run = async ({ interaction, options }: CommandProps): Promise<void> => {
+	public run = async ({ interaction, options, i18next }: CommandProps): Promise<void> => {
 		const beatmapExtended = await this.findBeatmapUseCase.findBeatmap(options.getNumber("beatmap_id", true));
 
 		if (beatmapExtended === null) {
 			interaction.reply({ embeds: [ErrorEmbed.notFoundEmbedBuilder("beatmap")], flags: MessageFlags.Ephemeral });
-			return 
+			return;
 		}
 
-		const beatmapEmbed = BeatmapEmbed.beatmapEmbedBuilder(beatmapExtended);
+		const lang = interaction.locale.startsWith("pt") ? "pt" : "en";
+		const beatmapEmbed = BeatmapEmbed.beatmapEmbedBuilder(beatmapExtended, i18next, lang);
 
 		interaction.reply({ embeds: [beatmapEmbed] });
 	};
