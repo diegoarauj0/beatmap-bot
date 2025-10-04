@@ -4,7 +4,7 @@ import { loadCommands } from "./loaders/commandLoader";
 import { loadEvents } from "./loaders/eventLoader";
 
 export class DiscordClient extends Client {
-	public readonly fileCondition = (fileName: string) => fileName.endsWith(".ts") || fileName.endsWith(".js");
+	public readonly fileCondition = (fileName: string) => (fileName.endsWith(".ts") && !fileName.endsWith(".d.ts")) || fileName.endsWith(".js");
 	public readonly disableGlobalCommands = process.env.DISCORD_DISABLE_GLOBAL_COMMANDS === "true";
 	public readonly isDev: boolean = process.env.NODE_ENV === "development";
 	public commands: Collection<string, CommandType> = new Collection();

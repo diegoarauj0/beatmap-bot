@@ -1,6 +1,5 @@
-import { OsuClientRuleset } from "@app/shared/contracts/services/osuClient.service";
-import { UserExtendedOsuEntity } from "@domain/entities/osu/osuUser.entity";
+import { IOsuUserExtendedProfile, OsuClientRuleset } from "@app/shared/contracts/services/osuClient.service";
 
 export interface IFindUserUseCase {
-	findUser(query: string | number, ruleset: OsuClientRuleset): Promise<UserExtendedOsuEntity | null>;
+	findUser(query: string | number, ruleset: OsuClientRuleset): Promise<IOsuUserExtendedProfile | null>;
 }

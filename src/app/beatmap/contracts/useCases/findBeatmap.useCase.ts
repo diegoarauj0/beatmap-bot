@@ -1,5 +1,5 @@
-import { OsuBeatmapExtendedEntity } from "@domain/entities/osu/osuBeatmap.entity";
+import { IOsuBeatmapExtended } from "@app/shared/contracts/services/osuClient.service";
 
 export interface IFindBeatmapUseCase {
-	findBeatmap: (beatmapId: number) => Promise<OsuBeatmapExtendedEntity | null>;
+	findBeatmap: (beatmapId: number) => Promise<IOsuBeatmapExtended | null>;
 }

@@ -16,7 +16,6 @@
 		"paths": {
 			"@di/*": ["./di/*"],
 			"@app/*": ["./app/*"],
-			"@domain/*": ["./domain/*"],
 			"@config/*": ["./config/*"],
 			"@discord/*": ["./discord/*"],
 			"@persistence/*": ["./persistence/*"]
